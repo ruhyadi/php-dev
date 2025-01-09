@@ -1,0 +1,21 @@
+ARG PHP_VERSION="8.3-bookworm"
+ARG NODE_VERSION="20"
+
+FROM mcr.microsoft.com/devcontainers/php:${PHP_VERSION}
+
+# install nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
+    && apt-get install -y nodejs
+
+# install typescript
+RUN npm install -g typescript
+
+# install bun
+RUN curl -fsSL https://bun.sh/install | bash - \
+    && mv /root/.bun/bin/* /usr/local/bin/ \
+    && rm -rf /root/.bun
+
+# install php packages with docker-php-ext-install
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    && docker-php-ext-install pdo_pgsql
