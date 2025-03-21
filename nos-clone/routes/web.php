@@ -14,13 +14,14 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+// Redirect root to dashboard if authenticated, otherwise to login
 Route::get('/', function () {
-    return view('welcome');
+    return auth()->check() ? redirect('/dashboard') : redirect('/login');
 });
 
 // Auth Routes
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login')->middleware('guest');
+Route::post('/login', [AuthController::class, 'login'])->middleware('guest');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Protected Routes
