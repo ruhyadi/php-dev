@@ -1,4 +1,4 @@
-ARG PHP_VERSION="8.3-bookworm"
+ARG PHP_VERSION="8.0"
 
 FROM mcr.microsoft.com/devcontainers/php:${PHP_VERSION}
 
@@ -21,4 +21,6 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     libicu-dev \
     libzip-dev \
-    && docker-php-ext-install pdo_pgsql intl zip
+    libpng-dev \
+    && docker-php-ext-install \
+    pdo_pgsql intl zip gd
