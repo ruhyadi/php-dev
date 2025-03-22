@@ -9,7 +9,8 @@ RUN apk add --no-cache \
     libzip-dev \
     zip \
     unzip \
-    git
+    git \
+    netcat-openbsd
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_pgsql zip bcmath gd
@@ -46,8 +47,12 @@ COPY docker/nginx/default.conf /etc/nginx/http.d/default.conf
 # Configure Supervisor
 COPY docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+# Copy and set up entrypoint script
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Expose port 80
 EXPOSE 80
 
-# Start Supervisor
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+# Set the entrypoint
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
