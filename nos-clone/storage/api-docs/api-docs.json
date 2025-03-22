@@ -245,13 +245,13 @@
                 ]
             }
         },
-        "/api/login": {
+        "/api/auth/login": {
             "post": {
                 "tags": [
                     "Authentication"
                 ],
                 "summary": "Authenticate user and generate token",
-                "operationId": "222b2625838e3c57e017987f73598fda",
+                "operationId": "dd51a484b7fa0f97c7680fdbde14cf5f",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -314,13 +314,13 @@
                 }
             }
         },
-        "/api/logout": {
+        "/api/auth/logout": {
             "post": {
                 "tags": [
                     "Authentication"
                 ],
                 "summary": "Logout user (revoke token)",
-                "operationId": "ad65cbbd4e9f201619eae184a5961a98",
+                "operationId": "df9bdc6c7a6d9f20b983526b2ec0f698",
                 "responses": {
                     "200": {
                         "description": "Logout successful",
@@ -353,13 +353,13 @@
                 ]
             }
         },
-        "/api/register": {
+        "/api/auth/register": {
             "post": {
                 "tags": [
-                    "Registration"
+                    "Authentication"
                 ],
                 "summary": "Register a new user",
-                "operationId": "f9ddb48d31411767b13157de000a7836",
+                "operationId": "c7bb21a0d87049e161b8e4c9b0d909f2",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -450,207 +450,6 @@
                     }
                 }
             }
-        },
-        "/api/users": {
-            "get": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Get list of users",
-                "operationId": "566aed8efb436ca506e0ef51a032ecd9",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "properties": {
-                                            "id": {
-                                                "type": "integer"
-                                            },
-                                            "name": {
-                                                "type": "string"
-                                            },
-                                            "email": {
-                                                "type": "string"
-                                            },
-                                            "role": {
-                                                "type": "object"
-                                            }
-                                        },
-                                        "type": "object"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_token": []
-                    }
-                ]
-            }
-        },
-        "/api/users/{id}": {
-            "get": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Get user by ID",
-                "operationId": "6f51bd5fa2dddcd25e44cfa53dcbd10a",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "User ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "integer"
-                                        },
-                                        "name": {
-                                            "type": "string"
-                                        },
-                                        "email": {
-                                            "type": "string"
-                                        },
-                                        "role": {
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "User not found"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_token": []
-                    }
-                ]
-            },
-            "put": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Update user",
-                "operationId": "070e37fc9aff78ae73860751bc990ed3",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "User ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "role_id": {
-                                        "type": "integer"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "User updated successfully"
-                    },
-                    "404": {
-                        "description": "User not found"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "422": {
-                        "description": "Validation error"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_token": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Delete user",
-                "operationId": "0b4133ed462528a5e648b88ead11e929",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "User ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User deleted successfully"
-                    },
-                    "404": {
-                        "description": "User not found"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Cannot delete own account"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer_token": []
-                    }
-                ]
-            }
         }
     },
     "components": {
@@ -668,16 +467,8 @@
             "description": "API Endpoints for admin operations"
         },
         {
-            "name": "Registration",
-            "description": "API Endpoints for user registration"
-        },
-        {
             "name": "Authentication",
             "description": "Authentication"
-        },
-        {
-            "name": "Users",
-            "description": "Users"
         }
     ]
 }
